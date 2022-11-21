@@ -8,10 +8,9 @@ app.include_router(api)
 
 templates = Jinja2Templates(directory='templates')
 
-@app.get('/')
-def index(request: fastapi.Request):
+@app.api_route('/', methods=['GET'])
+async def index(request: fastapi.Request):
     context = {
-        'name': 'Olesya',
         'request': request
     }
     return templates.TemplateResponse('index.html', context)

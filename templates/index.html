@@ -1,10 +1,30 @@
 <html>
   <head>
-    <title>Главная страница</title>
+    <title>Сервис обещаний</title>
   </head>
   <body>
     <div>
-        Привет, {{ name }}!
+        Я, <span id="name"></span> <span id="curDT"></span>,обещаю бросить курить в 45 лет.
+        <br>
+        _______________/<span id="nameSignature"></span>/
     </div>
+    <div style="margin-top: 20px;">
+      <input id="nameInput" type="text">
+      <input id="btn" type="submit" value="Установить имя">
+    </div>
+    <script type="text/javascript">
+      document.getElementById('btn').onclick = function click() {
+        var name = document.getElementById('nameInput').value
+        document.getElementById('name').innerText = name
+        document.getElementById('nameSignature').innerText = name
+
+        fetch('/api/get_cur_dt', {method: 'POST'})
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('curDT').innerText = data.cur_dt
+        })
+
+      }
+    </script>
   </body>
 </html>
